@@ -194,6 +194,16 @@ export default function App() {
     setCurrentDate(next);
   };
 
+  const jumpToDate = (dateStr) => {
+    const [year, month] = dateStr.split('-').map(Number);
+    setCurrentDate(new Date(year, month - 1, 1));
+  };
+
+  // Sort entries by date for the summary strip
+  const sortedEntries = useMemo(() => {
+    return [...entries].sort((a, b) => a.date.localeCompare(b.date));
+  }, [entries]);
+
   if (loading) {
     return (
       <div className="h-screen flex items-center justify-center bg-slate-50">
@@ -207,8 +217,8 @@ export default function App() {
       <div className="h-screen flex items-center justify-center bg-slate-50 p-4">
         <div className="bg-white rounded-3xl border border-slate-200 shadow-xl p-10 max-w-sm w-full text-center space-y-6">
           <CalendarIcon className="text-blue-600 w-12 h-12 mx-auto" />
-          <h1 className="text-2xl font-black text-slate-800">Social Calendar</h1>
-          <p className="text-slate-500 text-sm">Sign in to claim your day on the calendar</p>
+          <h1 className="text-2xl font-black text-slate-800">Digitals Calendar</h1>
+          <p className="text-slate-500 text-sm">Sign in to select your day on the calendar</p>
           <button
             onClick={handleGoogleSignIn}
             className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-white border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 rounded-2xl font-bold text-sm transition-all shadow-sm"
@@ -235,7 +245,7 @@ export default function App() {
           <div>
             <h1 className="text-2xl font-black text-slate-800 flex items-center gap-3">
               <CalendarIcon className="text-blue-600 w-8 h-8" />
-              Team Calendar
+              Digitals Calendar
             </h1>
             <p className="text-slate-500 text-sm font-medium">One person, One day. Claim yours! Don't be serious</p>
           </div>
@@ -258,6 +268,40 @@ export default function App() {
             </button>
           </div>
         </header>
+
+        {/* Avatar Summary Strip */}
+        {sortedEntries.length > 0 && (
+          <div className="mb-4 p-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
+            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">
+              {sortedEntries.length} {sortedEntries.length === 1 ? 'person' : 'people'} selected
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {sortedEntries.map(entry => (
+                <button
+                  key={entry.id}
+                  onClick={() => jumpToDate(entry.date)}
+                  className="group relative"
+                  title={`${entry.displayName} — ${new Date(entry.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}`}
+                >
+                  <img
+                    src={entry.avatar}
+                    alt={entry.displayName}
+                    referrerPolicy="no-referrer"
+                    className={`
+                      w-10 h-10 rounded-full object-cover border-2 shadow-sm transition-all hover:scale-110 hover:shadow-md cursor-pointer
+                      ${entry.id === user?.uid ? 'border-blue-500 ring-2 ring-blue-500/20' : 'border-white hover:border-slate-300'}
+                    `}
+                  />
+                  <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 hidden group-hover:block z-20">
+                    <div className="bg-slate-800 text-white text-[10px] px-2 py-1 rounded whitespace-nowrap font-bold shadow-lg">
+                      {entry.displayName}
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* User Engagement Banner */}
         <div className="mb-8">
