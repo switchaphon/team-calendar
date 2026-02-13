@@ -73,6 +73,8 @@ export default function App() {
         const savedAvatar = localStorage.getItem(`avatar_${u.uid}`);
         setUserName(savedName || u.displayName || '');
         setUserAvatar(savedAvatar || u.photoURL || AVATARS[0]);
+        // Always start on today's month when user logs in
+        setCurrentDate(new Date());
       }
       setLoading(false);
     });
