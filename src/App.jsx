@@ -239,17 +239,17 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 p-4 md:p-8 text-slate-900">
+    <div className="min-h-screen bg-slate-50 p-3 md:p-6 text-slate-900">
       <div className="max-w-6xl mx-auto">
 
         {/* Navbar */}
-        <header className="flex flex-col md:flex-row md:items-center justify-between mb-8 p-6 bg-white rounded-2xl border border-slate-200 shadow-sm gap-4">
+        <header className="flex flex-col md:flex-row md:items-center justify-between mb-3 px-5 py-3 bg-white rounded-xl border border-slate-200 shadow-sm gap-3">
           <div>
-            <h1 className="text-2xl font-black text-slate-800 flex items-center gap-3">
-              <CalendarIcon className="text-blue-600 w-8 h-8" />
+            <h1 className="text-lg font-black text-slate-800 flex items-center gap-2">
+              <CalendarIcon className="text-blue-600 w-6 h-6" />
               Digitals Calendar
             </h1>
-            <p className="text-slate-500 text-sm font-medium">One person, One day. Claim yours! Don't be serious</p>
+            <p className="text-slate-500 text-xs font-medium">One person, One day. Claim yours! Don't be serious</p>
           </div>
 
           <div className="flex items-center gap-3">
@@ -273,11 +273,11 @@ export default function App() {
 
         {/* Avatar Summary Strip */}
         {sortedEntries.length > 0 ? (
-          <div className="mb-4 p-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
-            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">
-              {sortedEntries.length} {sortedEntries.length === 1 ? 'person' : 'people'} selected
+          <div className="mb-3 px-4 py-3 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center gap-3">
+            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 shrink-0">
+              {sortedEntries.length} {sortedEntries.length === 1 ? 'person' : 'people'}
             </p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap items-center -space-x-2">
               {sortedEntries.map(entry => (
                 <button
                   key={entry.id}
@@ -290,11 +290,11 @@ export default function App() {
                     alt={entry.displayName}
                     referrerPolicy="no-referrer"
                     className={`
-                      w-10 h-10 rounded-full object-cover border-2 shadow-sm transition-all hover:scale-110 hover:shadow-md cursor-pointer
+                      w-8 h-8 rounded-full object-cover border-2 shadow-sm transition-all hover:scale-125 hover:shadow-md hover:z-10 cursor-pointer relative
                       ${entry.id === user?.uid ? 'border-blue-500 ring-2 ring-blue-500/20' : 'border-white hover:border-slate-300'}
                     `}
                   />
-                  <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 hidden group-hover:block z-20">
+                  <div className="absolute -bottom-7 left-1/2 -translate-x-1/2 hidden group-hover:block z-20">
                     <div className="bg-slate-800 text-white text-[10px] px-2 py-1 rounded whitespace-nowrap font-bold shadow-lg">
                       {entry.displayName}
                     </div>
@@ -304,43 +304,43 @@ export default function App() {
             </div>
           </div>
         ) : (
-          <div className="mb-4 bg-white border-2 border-dashed border-slate-300 p-4 rounded-2xl flex items-center gap-3 text-slate-500 italic">
-            <CalendarIcon size={20} className="text-slate-400" />
-            <p className="text-sm">No one has selected a day yet. Be the first!</p>
+          <div className="mb-3 px-4 py-3 bg-white border-2 border-dashed border-slate-300 rounded-xl flex items-center gap-3 text-slate-500 italic">
+            <CalendarIcon size={16} className="text-slate-400 shrink-0" />
+            <p className="text-xs">No one has selected a day yet. Be the first!</p>
           </div>
         )}
 
         {/* User Engagement Banner */}
-        <div className="mb-8">
+        <div className="mb-4">
           {myEntry ? (
-            <div className="bg-blue-600 text-white p-5 rounded-2xl shadow-lg shadow-blue-200 flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="p-2 bg-white/20 rounded-xl">
-                  <Check size={24} />
+            <div className="bg-blue-600 text-white px-4 py-3 rounded-xl shadow-md shadow-blue-200 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="p-1.5 bg-white/20 rounded-lg">
+                  <Check size={18} />
                 </div>
                 <div>
-                  <p className="font-bold">You selected {new Date(myEntry.date).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })}</p>
-                  <p className="text-blue-100 text-sm">Need a different day? Just click a new date on calendar.</p>
+                  <p className="font-bold text-sm">You selected {new Date(myEntry.date).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                  <p className="text-blue-100 text-xs">Need a different day? Just click a new date on calendar.</p>
                 </div>
               </div>
               <button
                 onClick={handleClearEntry}
-                className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-xs font-black uppercase tracking-widest transition-colors"
+                className="px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-[10px] font-black uppercase tracking-widest transition-colors"
               >
                 Cancel this day!
               </button>
             </div>
           ) : (
-            <div className="bg-white border-2 border-dashed border-slate-300 p-6 rounded-2xl flex items-center gap-4 text-slate-500 italic">
-              <Info size={24} className="text-slate-400" />
-              <p>Your profile isn't on the board yet. Pick a day to get started!</p>
+            <div className="bg-white border-2 border-dashed border-slate-300 px-4 py-3 rounded-xl flex items-center gap-3 text-slate-500 italic">
+              <Info size={18} className="text-slate-400 shrink-0" />
+              <p className="text-xs">Your profile isn't on the board yet. Pick a day to get started!</p>
             </div>
           )}
         </div>
 
         {/* Calendar Navigation */}
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-slate-800">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold text-slate-800">
             {currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
           </h2>
           <div className="flex items-center bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
@@ -360,10 +360,10 @@ export default function App() {
         </div>
 
         {/* Calendar Grid */}
-        <div className="bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 overflow-hidden">
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-xl shadow-slate-200/50 overflow-hidden">
           <div className="grid grid-cols-7 bg-slate-50 border-b border-slate-200">
             {DAYS_OF_WEEK.map(d => (
-              <div key={d} className="py-4 text-center text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+              <div key={d} className="py-2 text-center text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
                 {d}
               </div>
             ))}
@@ -380,39 +380,45 @@ export default function App() {
                   key={i}
                   onClick={() => cell.isCurrentMonth && handleDateClick(cell.dateStr)}
                   className={`
-                    relative min-h-[120px] md:min-h-[160px] p-3 border-r border-b border-slate-100 transition-all
+                    relative min-h-[100px] md:min-h-[110px] p-2 border-r border-b border-slate-100 transition-all
                     ${cell.isCurrentMonth ? 'bg-white cursor-pointer hover:bg-slate-50' : 'bg-slate-50/50 opacity-40 grayscale pointer-events-none'}
                     ${isSelectedByMe ? 'ring-4 ring-inset ring-blue-500/10 bg-blue-50/30' : ''}
                   `}
                 >
-                  <div className="flex justify-between items-start mb-3">
+                  <div className="flex justify-between items-start mb-1">
                     <span className={`
-                      text-sm font-bold w-8 h-8 flex items-center justify-center rounded-xl transition-colors
-                      ${isToday ? 'bg-blue-600 text-white shadow-md shadow-blue-200' : 'text-slate-400'}
+                      text-xs font-bold w-6 h-6 flex items-center justify-center rounded-lg transition-colors
+                      ${isToday ? 'bg-blue-600 text-white shadow-sm shadow-blue-200' : 'text-slate-400'}
                       ${isSelectedByMe ? 'text-blue-600 font-black' : ''}
                     `}>
                       {cell.day}
                     </span>
                   </div>
 
-                  <div className="flex flex-wrap gap-2">
-                    {dayEntries.map(entry => (
-                      <div key={entry.id} className="group relative">
+                  <div className="flex items-center -space-x-2">
+                    {dayEntries.slice(0, 4).map((entry, idx) => (
+                      <div key={entry.id} className="group relative" style={{ zIndex: dayEntries.length - idx }}>
                         <img
                           src={entry.avatar}
                           alt={entry.displayName}
+                          referrerPolicy="no-referrer"
                           className={`
-                            w-10 h-10 md:w-14 md:h-14 rounded-2xl object-cover border-2 shadow-sm transition-transform hover:scale-110
-                            ${entry.id === user?.uid ? 'border-blue-500 ring-4 ring-blue-500/10 scale-105' : 'border-white'}
+                            w-8 h-8 md:w-10 md:h-10 rounded-full object-cover border-2 shadow-sm transition-transform hover:scale-125 hover:z-20 relative
+                            ${entry.id === user?.uid ? 'border-blue-500 ring-2 ring-blue-500/10' : 'border-white'}
                           `}
                         />
-                        <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 hidden group-hover:block z-10">
+                        <div className="absolute top-full mt-1 left-1/2 -translate-x-1/2 hidden group-hover:block z-30">
                           <div className="bg-slate-800 text-white text-[10px] px-2 py-1 rounded whitespace-nowrap font-bold shadow-lg">
                             {entry.displayName} {entry.id === user?.uid ? '(You)' : ''}
                           </div>
                         </div>
                       </div>
                     ))}
+                    {dayEntries.length > 4 && (
+                      <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-slate-200 border-2 border-white flex items-center justify-center text-[10px] font-black text-slate-500 relative" style={{ zIndex: 0 }}>
+                        +{dayEntries.length - 4}
+                      </div>
+                    )}
                   </div>
                 </div>
               );
