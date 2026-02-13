@@ -272,7 +272,7 @@ export default function App() {
         </header>
 
         {/* Avatar Summary Strip */}
-        {sortedEntries.length > 0 && (
+        {sortedEntries.length > 0 ? (
           <div className="mb-4 p-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
             <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">
               {sortedEntries.length} {sortedEntries.length === 1 ? 'person' : 'people'} selected
@@ -302,6 +302,11 @@ export default function App() {
                 </button>
               ))}
             </div>
+          </div>
+        ) : (
+          <div className="mb-4 bg-white border-2 border-dashed border-slate-300 p-4 rounded-2xl flex items-center gap-3 text-slate-500 italic">
+            <CalendarIcon size={20} className="text-slate-400" />
+            <p className="text-sm">No one has selected a day yet. Be the first!</p>
           </div>
         )}
 
